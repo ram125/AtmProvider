@@ -4,6 +4,10 @@ namespace AtmProvider
 {
     public partial class Form1 : Form
     {
+
+        private int amount = 2000;
+        private int pin = 2342;
+        private int tries = 3;
         public Form1()
         {
             InitializeComponent();
@@ -11,9 +15,13 @@ namespace AtmProvider
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!int.TryParse(textBox1.Text, out int value))
+            if (!int.TryParse(textBox1.Text, out int value) || !(value % 10 == 0))
             {
                 errorProvider1.SetError(textBox1, "invalid amount");
+            }
+            else if (amount < Int16.Parse(textBox1.Text))
+            {
+                errorProvider1.SetError(textBox1, "not enough money");
             }
             else
             {
@@ -24,7 +32,19 @@ namespace AtmProvider
                 errorProvider2.SetError(textBox2, "too short");
                 if (!int.TryParse(textBox2.Text, out _))
                 {
-                    errorProvider2.SetError(textBox2, "invalid password");
+                    errorProvider2.SetError(textBox2, "invalid pin");
+                }
+            }
+            else if (pin != Int16.Parse(textBox2.Text))
+            {
+                if (tries > 1)
+                {
+                    MessageBox.Show("wrong pin");
+                    tries--;
+                }
+                else
+                {
+                    MessageBox.Show("card is blocked");
                 }
             }
             else
