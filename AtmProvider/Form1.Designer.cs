@@ -51,6 +51,7 @@
             // 
             textBox2.Location = new Point(456, 204);
             textBox2.Name = "textBox2";
+            textBox2.PasswordChar = '*';
             textBox2.Size = new Size(150, 31);
             textBox2.TabIndex = 1;
             // 
